@@ -27,7 +27,9 @@
 
 Considering docker is already install on the server  the following is the process of deploying it.
 
-## At the root directory of the project i.e  >>>>>>> /var/www/html/eskimi-ssp/ run the following command to build and deploy the app.
+At the root directory of the project i.e 
+	/var/www/html/eskimi-ssp/ 
+run the following command to build and deploy the app.
 
     docker-compose up -d 
 
