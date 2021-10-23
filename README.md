@@ -38,6 +38,22 @@ This  command with build and deploy the app plus installing any required depende
 To stop docker container run the following 
 
     docker-compose down 
+    
+## End Points 
+
+End points can be accessed on;
+
+    GET - http://localhost/app-folder/public/api/campaigns
+    POST - http://localhost/app-folder/public/api/campaigns
+    PUT/PATCH - http://localhost/app-folder/public/api/campaigns/{id}
+    GET - http://localhost/app-folder/public/api/campaigns/{id} {for delete records}
+    
+    
+    
+    
+    
+    
+
 
 
 
