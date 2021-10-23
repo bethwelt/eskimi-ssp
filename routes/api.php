@@ -29,6 +29,6 @@ Route::middleware('api')->group(function () {
     //Route::resource('campaigns', CampaignController::class);
     Route::get('/campaigns', [App\Http\Controllers\CampaignController::class, 'index']);
 	Route::post('/campaigns', [App\Http\Controllers\CampaignController::class, 'store']);
-	Route::put('/campaigns/{id}', [App\Http\Controllers\CampaignController::class, 'update']);
+	Route::pATCH('/campaigns/{id}', [App\Http\Controllers\CampaignController::class, 'update']);
 	Route::get('/campaigns/{id}', [App\Http\Controllers\CampaignController::class, 'destroy']);
 });

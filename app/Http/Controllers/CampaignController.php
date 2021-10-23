@@ -16,7 +16,12 @@ class CampaignController extends Controller
       public function index()
     {
         $result = Campaigns::with('campaigns_images')->orderBy('created_at', 'desc')->get();
-        return response()->json(['status'=> 200,'error' => false, 'data' => $result]);
+        if($result){
+            return response()->json(['status'=> 200,'error' => false, 'data' => $result]);
+        }else{
+            return response()->json(['status'=> 200,'error' => false, 'data' => []]);
+        }
+        
     }
 
     //post campaigns
@@ -25,7 +30,7 @@ class CampaignController extends Controller
     {
         //get the request from the api
         DB::transaction(function () use ($request) {
-            $user =Auth::user();
+           // $user =Auth::user();
             $name = $request->name;
             $daily = $request->daily;
             $total = $request->total;
@@ -39,17 +44,17 @@ class CampaignController extends Controller
                 'daily_budget' => $daily,
                 'date_from' => $from,
                 'date_to' => $to,
-                'user_id' => $user->id,
+                'user_id' =>1// $user->id,
             ]);
 
             // store each image with related campaign
             foreach($images as $image) {
                  $id =$data->id;
 
-                $imagePath = Storage::disk('uploads')->put($user->id . '/campaigns/' . $data->id, $image);
+                $imagePath = Storage::disk('uploads')->put( '1/campaigns/' . $data->id, $image);
                   $image_data=[
                     'campaign_image_caption' => $name,
-                    'campaign_image_path' => '/uploads/' . $imagePath,
+                    'campaign_image_path' => '/public/uploads/' . $imagePath,
                     'campaigns_id' => $data->id,
                 ];
                // print_r($image_data);exit();
@@ -60,13 +65,15 @@ class CampaignController extends Controller
     }
 
    public function update($id, Request $request) {
-            $user = Auth::user();
+
+            //$user = Auth::user();
             $name = $request->name;
             $daily = $request->daily;
             $total = $request->total;
             $from = $request->from;
             $to = $request->to;
             $images = $request->images;
+
         $campaign = Campaigns::find($id);
         $campaign->update([
                 'name' => $name,
@@ -74,13 +81,14 @@ class CampaignController extends Controller
                 'daily_budget' => $daily,
                 'date_from' => $from,
                 'date_to' => $to,
-                'user_id' => $user->id,
+                'user_id' =>1// $user->id,
             ]);
         return response()->json(['status'=> 200,'error' => false, 'data' =>'Updated']);
     }
+    ///
     public function destroy($id) {
-        $product = Campaigns::find($id);
-        $product->delete();
+        $campaign = Campaigns::find($id);
+        $campaign->delete();
         return response()->json(['status'=> 200,'error' => false, 'data' =>'Deleted']);
     }
 }
